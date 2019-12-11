@@ -3,37 +3,46 @@ var Cryptr = require('cryptr');
 var cryptr = new Cryptr('UserPassword');
 
 module.exports.authenticate = function(req,res){
-  var username = req.query.username;
-  var password = req.query.password;
+  var username = req.body.username;
+  var password = req.body.password;
 
   connection.query('SELECT * FROM tbl_users WHERE username = ?',[username], function (error, results, fields) {
     if (error) {
-      res.json({
-        status:false,
-        message:'There are some errors with query.'
-      });
+      // res.json({
+      //   status:false,
+      //   message:'There are some errors with query.'
+      // });
+      res.redirect('/login');
+      res.end();
     }
     else {
       if (results.length > 0) {
         decryptedString = cryptr.decrypt(results[0].password);
         if (password == decryptedString) {
-          res.json({
-            status:true,
-            message:'Successfully authenticated!'
-          });
+          // res.json({
+          //   status:true,
+          //   message:'Successfully authenticated!'
+          // });
+          req.session.loggedin = true;
+  				req.session.username = username;
+          res.redirect('/login');
         }
         else {
-          res.json({
-            status:false,
-            message:"Username and password do not match."
-          });
+          // res.json({
+          //   status:false,
+          //   message:"Username and password do not match."
+          // });
+          res.redirect('/login');
         }
+        res.end();
       }
       else {
-        res.json({
-          status:false,    
-          message:"Username does not exist."
-        });
+        // res.json({
+        //   status:false,    
+        //   message:"Username does not exist."
+        // });
+        res.redirect('/login');
+        res.end();
       }
     }
   });

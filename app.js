@@ -16,11 +16,15 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-	secret: 'secret',
-	resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+	secret: 'InstaMART2019',
+	resave: false,
+    saveUninitialized: true
 }));
+
+app.use(function (req, res, next) {
+    res.locals.isLoggedIn = req.session.loggedin;
+    next();
+})
 
 // app.get('/login/', function(req, res) {
 // 	if (req.session.loggedin) {
@@ -31,10 +35,11 @@ app.use(session({
 // });
 
 // routes
-// app.get('/', routes.login);//call for main index page
+app.get('/', routes.index);//call for main index page
 app.get('/signup', user.signup);//call for signup page
 app.post('/signup', user.signup);//call for signup post 
 app.get('/login', user.login);//call for login page
 app.post('/login', user.login);//call for login post
+app.get('/user/logout', user.logout);//call for logout
 
 app.listen(8080);

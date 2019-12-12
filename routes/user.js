@@ -39,7 +39,12 @@ exports.signup = function(req, res){
       });
    } 
    else {
-      res.render('login.ejs',{mode: mode, output: output, message: message});
+      if (req.session.loggedin) {
+         res.redirect('/')
+      }
+      else {
+         res.render('login.ejs',{mode: mode, output: output, message: message});   
+      }
    }
 };
  
@@ -64,9 +69,9 @@ exports.login = function(req, res){
                if (password == decryptedString) {
                   req.session.loggedin = true;
                   req.session.username = username;
-                  output = 'success';
-                  message = 'Successfully Logged-in!';
-                  res.render('login.ejs',{mode: mode, output: output, message: message});
+                  // output = 'success';
+                  // message = 'Successfully Logged-in!';
+                  res.redirect('/');
                }
                else {
                   message = 'Username and password do not match.';
@@ -81,7 +86,12 @@ exports.login = function(req, res){
       });
    } 
    else {
-      res.render('login.ejs',{mode: mode, output: output, message: message});
+      if (req.session.loggedin == true) {
+         res.redirect('/');
+      }
+      else {
+         res.render('login.ejs',{mode: mode, output: output, message: message}); 
+      }
    }           
 };
 

@@ -1,0 +1,28 @@
+{
+  "name": "instamart",
+  "version": "1.0.0",
+  "description": "instamart - single vendor e-commerce system",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.19.0",
+    "connect": "^3.7.0",
+    "connect-flash": "^0.1.1",
+    "cryptr": "^6.0.1",
+    "ejs": "^3.0.1",
+    "express": "^4.14.1",
+    "express-session": "^1.17.0",
+    "jsonwebtoken": "^7.3.0",
+    "mysql": "^2.17.1",
+    "nodemon": "^2.0.1",
+    "req-flash": "0.0.3",
+    "router": "^1.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": []
+}

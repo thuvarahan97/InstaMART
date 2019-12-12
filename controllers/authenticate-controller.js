@@ -25,14 +25,20 @@ module.exports.authenticate = function(req,res){
           // });
           req.session.loggedin = true;
   				req.session.username = username;
-          res.redirect('/login');
+          // res.redirect('/login');
+          var message = '';
+          message = 'Successfully Logged-in!';
+          res.render('login',{login_message: message});
         }
         else {
           // res.json({
           //   status:false,
           //   message:"Username and password do not match."
           // });
-          res.redirect('/login');
+          // res.redirect('/login');
+          var message = '';
+          message = 'Successfully Logged-in!';
+          res.render('login.ejs',{login_message: message});
         }
         res.end();
       }
@@ -41,7 +47,10 @@ module.exports.authenticate = function(req,res){
         //   status:false,    
         //   message:"Username does not exist."
         // });
-        res.redirect('/login');
+        // res.redirect('/login');
+          var message = '';
+          message = 'Successfully Logged-in!';
+          res.render('login.ejs',{login_message: message});
         res.end();
       }
     }

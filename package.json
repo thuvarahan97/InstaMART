@@ -11,8 +11,9 @@
     "url": "https://github.com/npm/npm.git"
   },
   "dependencies": {
+    "dat-gui": "latest",
     "express": "~3.0.1",
-    "path": "latest",
-    "dat-gui": "latest"
+    "mysql": "^2.17.1",
+    "path": "latest"
   }
 }

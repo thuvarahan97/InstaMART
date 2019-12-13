@@ -1,6 +1,6 @@
 var connection = require('./../config');
 var Cryptr = require('cryptr');
-var cryptr = new Cryptr('UserPassword');
+var cryptr = new Cryptr('InstaMARTUserPassword');
 
 //---------------------------------------------signup page call------------------------------------------------------
 exports.signup = function(req, res){
@@ -9,8 +9,13 @@ exports.signup = function(req, res){
    var message = '';
    
    if(req.method == "POST"){
-      var encryptedString = cryptr.encrypt(req.body.password);
-      connection.query('SELECT RegisterUser(?,?,?,?,?) AS output',[req.body.username,req.body.firstname,req.body.lastname,req.body.email,encryptedString], function (error, result, fields) {
+      var firstname = req.body.firstname.charAt(0).toUpperCase() + req.body.firstname.slice(1).toLowerCase();
+      var lastname = req.body.lastname.charAt(0).toUpperCase() + req.body.lastname.slice(1).toLowerCase();
+      var email = req.body.email;
+      var username = req.body.username;
+      var password = req.body.password;
+      var encryptedString = cryptr.encrypt(password);
+      connection.query('SELECT RegisterUser(?,?,?,?,?) AS output',[username,firstname,lastname,email,encryptedString], function (error, result, fields) {
          if (error) {
             message = "Error occured! Try again.";
             res.render('login.ejs',{mode: mode, output: output, message: message});
@@ -68,9 +73,8 @@ exports.login = function(req, res){
                decryptedString = cryptr.decrypt(results[0].password);
                if (password == decryptedString) {
                   req.session.loggedin = true;
+                  req.session.user_id = results[0].user_id;
                   req.session.username = username;
-                  // output = 'success';
-                  // message = 'Successfully Logged-in!';
                   res.redirect('/');
                }
                else {

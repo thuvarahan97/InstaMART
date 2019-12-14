@@ -6,19 +6,11 @@
 </head>
 <body onload="loadreviews()">
     <div id="reviews"></div>
-    <div id="main-content">
-        <div id="make-review">
-                <label for="name">Name:</label>
-                <input class="form-control" type="text" id="name" Required>
-            </div>
-            <div class="form-group">
-                <label for="message">Type Review</label>
-                <textarea class="form-control" id="message" Required></textarea>
-            </div>
-            <button type="button" class="btn btn-success" onclick="insertreview()">Submit</button>
-        </div>
-    </div>
-
-
+    <form action="" method="get">
+    Name: <input type="text" id="name" required><br><br>
+    Type Review: <textarea id="message" required></textarea>
+    
+    <button type="submit" onclick="document.getElementById('name').value = ''; document.getElementById('message').value = ''";>Submit</button>
+    </form>   
 </body>
 </html>

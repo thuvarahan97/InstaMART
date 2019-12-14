@@ -6,11 +6,10 @@ function loadreviews(){
         {
             document.getElementById('reviews').innerHTML = '';
             var result = this.responseText;
-
             var results = JSON.parse(result);
 
             results.forEach((review)=>
-        {
+            {
             var node = document.createElement("div");
             var name = document.createElement("H5");
             var date = document.createElement("H6");
@@ -30,15 +29,13 @@ function loadreviews(){
 
             document.getElementById('reviews').appendChild(node);
 
-
-        });
+            });
         }
     }
 
-    xhttp.open("GET", "/home", true);
+    xhttp.open("GET", "/view", true);
     xhttp.send();
 }
-
 
 function insertreview()
 {
@@ -58,4 +55,5 @@ function insertreview()
     xhttp.open("POST", "/insert", true);
     xhttp.setRequestHeader("Content-Type", "application/json");
     xhttp.send('{"name":"'+name+'", "message":"'+message+'"}');
+
 }

@@ -1,0 +1,228 @@
+<%- include ('header') %>
+
+<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        <div class="table-responsive cart_info">
+            <table class="table table-condensed">
+                <thead>
+                    <tr class="cart_menu">
+                        <td class="image">Item</td>
+                        <td class="description"></td>
+                        <td class="price">Price</td>
+                        <td class="quantity">Quantity</td>
+                        <td class="total">Total</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i = 0; i < result.length; i++) { %>
+                    <tr>
+                        <td class="cart_product">
+                            <a href=""><img src="<%= result[i]['product_variant_image'] %>" alt=""></a>
+                        </td>
+                        <td class="cart_description">
+                            <h4><a href=""><%= result[i]['product_name'] %></a></h4>
+                            <p>Web ID: <%= result[i]['sku'] %></p>
+                        </td>
+                        <td class="cart_price">
+                            <p class="currency-lkr unit_price" price="<%= result[i]['unit_price'] %>"><%= result[i]['unit_price'] %></p>
+                        </td>
+                        <td class="cart_quantity">
+                            <div class="cart_quantity_button">
+                                <a class="cart_quantity_change cart_quantity_up" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"> + </a>
+                                <input class="cart_quantity_input" sku="<%= result[i]['sku'] %>" type="text" name="quantity" value="<%= result[i]['quantity'] %>" autocomplete="off" size="2" style="background-color: white;" disabled>
+                                <a class="cart_quantity_change cart_quantity_down" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"> - </a>
+                            </div>
+                        </td>
+                        <td class="cart_total">
+                            <p class="cart_total_price currency-lkr" price="<%= result[i]['total_price'] %>" sku="<%= result[i]['sku'] %>"><%= result[i]['total_price'] %></p>
+                        </td>
+                        <td class="cart_delete">
+                            <a class="cart_quantity_delete" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"><i class="fa fa-times"></i></a>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section> <!--/#cart_items-->
+
+<section id="do_action">
+    <div class="container">
+        <!-- <div class="heading">
+            <h3>What would you like to do next?</h3>
+            <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+        </div> -->
+        <div class="row">
+            <!-- <div class="col-sm-6">
+                <div class="chose_area">
+                    <ul class="user_option">
+                        <li>
+                            <input type="checkbox">
+                            <label>Use Coupon Code</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Use Gift Voucher</label>
+                        </li>
+                        <li>
+                            <input type="checkbox">
+                            <label>Estimate Shipping & Taxes</label>
+                        </li>
+                    </ul>
+                    <ul class="user_info">
+                        <li class="single_field">
+                            <label>Country:</label>
+                            <select>
+                                <option>United States</option>
+                                <option>Bangladesh</option>
+                                <option>UK</option>
+                                <option>India</option>
+                                <option>Pakistan</option>
+                                <option>Ucrane</option>
+                                <option>Canada</option>
+                                <option>Dubai</option>
+                            </select>
+                            
+                        </li>
+                        <li class="single_field">
+                            <label>Region / State:</label>
+                            <select>
+                                <option>Select</option>
+                                <option>Dhaka</option>
+                                <option>London</option>
+                                <option>Dillih</option>
+                                <option>Lahore</option>
+                                <option>Alaska</option>
+                                <option>Canada</option>
+                                <option>Dubai</option>
+                            </select>
+                        
+                        </li>
+                        <li class="single_field zip-field">
+                            <label>Zip Code:</label>
+                            <input type="text">
+                        </li>
+                    </ul>
+                    <a class="btn btn-default update" href="">Get Quotes</a>
+                    <a class="btn btn-default check_out" href="">Continue</a>
+                </div>
+            </div> -->
+            <div class="col-sm-6" style="display: block; margin: auto; float: none;">
+                <div class="total_area">
+                    <ul>
+                        <li>Cart Sub Total <span class="cart_sub_total currency-lkr">0</span></li>
+                        <li>Eco Tax <span class="eco_tax currency-lkr">0</span class="currency-lkr"></li>
+                        <li>Shipping Cost <span>Free</span></li>
+                        <li>Total <span class="total_amount currency-lkr">0</span class="currency-lkr"></li>
+                    </ul>
+                    <form action="/checkout" method="POST" style="text-align: center;">
+                        <button class="btn btn-default check_out" type="submit">Check Out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--/#do_action-->
+    
+<%- include ('footer') %>
+
+<script type="text/javascript">
+
+    function format_currency(monetary_value) {
+        var i = new Intl.NumberFormat('en-IN', { 
+            style: 'currency', 
+            currency: 'LKR' 
+        }).format(monetary_value);
+
+        return i;
+    }
+
+    $('.currency-lkr').each(function() { 
+        var monetary_value = $(this).text();
+        var i = format_currency(monetary_value);
+        $(this).text(i); 
+    });
+
+    $('.cart_quantity_change').click(function() {
+        var sku = $(this).attr('sku');
+        var quantity = 0;
+        var activity = '';
+        
+        if ($(this).hasClass('cart_quantity_up')) {
+            quantity = parseInt($('.cart_quantity_input[sku="'+sku+'"').val()) + 1;
+            activity = 'increase';
+        }
+        else {
+            quantity = parseInt($('.cart_quantity_input[sku="'+sku+'"').val()) - 1;
+            activity = 'reduce';
+        }
+
+        var unit_price = $(this).parent().parent().parent().find('.cart_price').find('.unit_price').attr('price');
+        var total_price = unit_price * quantity;
+        var total_price_formatted = format_currency(total_price);
+        
+        if(quantity>=1){
+            $.ajax({
+                type:'POST',
+                url:'/changeQuantity',
+                contentType: 'application/json',
+                dataType: "json",
+                data:JSON.stringify({sku: sku, quantity: quantity}),
+                success: function(data) {
+                    if (data.result=='success') {
+                        $('.cart_quantity_input[sku="'+sku+'"]').val(quantity);
+                        $('.cart_total_price[sku="'+sku+'"]').html(total_price_formatted);
+                        $('.cart_total_price[sku="'+sku+'"]').attr('price', total_price);
+                        calculateTotalAmount();
+                    } else {
+                        alert('Unable to ' + activity + ' quantity. Try again!')
+                    }
+                }
+            });
+        }		
+    });
+
+    $('.cart_quantity_delete').click(function() {
+        var sku = $(this).attr('sku');
+        $.ajax({
+            type:'POST',
+            url:'/deleteCartItem',
+            contentType: 'application/json',
+            dataType: "json",
+            data:JSON.stringify({sku: sku}),
+            success: function(data) {
+                if (data.result=='success') {
+                    $('.cart_quantity_delete[sku="'+sku+'"]').parent().parent().remove();
+                    calculateTotalAmount();
+                } else {
+                    alert('Unable to remove cart item. Try again!')
+                }
+            }
+        });
+    });
+
+    function calculateTotalAmount() {
+        var cart_sub_total = 0;
+        $('.cart_total_price').each(function() {
+            cart_sub_total += parseFloat($(this).attr('price'));
+        });
+        
+        var eco_tax = cart_sub_total * 5/100;
+        var total_amount = cart_sub_total + eco_tax;
+
+        $('.cart_sub_total').html(format_currency(cart_sub_total));
+        $('.eco_tax').html(format_currency(eco_tax));
+        $('.total_amount').html(format_currency(total_amount));
+    }
+
+    calculateTotalAmount();
+
+</script> 

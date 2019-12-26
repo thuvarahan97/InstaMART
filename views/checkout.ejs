@@ -4,69 +4,34 @@
 		<div class="container">
 			<div class="breadcrumbs">
 				<ol class="breadcrumb">
-				  <li><a href="#">Home</a></li>
+				  <li><a href="/">Home</a></li>
 				  <li class="active">Check out</li>
 				</ol>
 			</div><!--/breadcrums-->
 
-			<div class="step-one">
-				<h2 class="heading">Step1</h2>
-			</div>
-			<div class="checkout-options">
-				<h3>New User</h3>
-				<p>Checkout options</p>
-				<ul class="nav">
-					<li>
-						<label><input type="checkbox"> Register Account</label>
-					</li>
-					<li>
-						<label><input type="checkbox"> Guest Checkout</label>
-					</li>
-					<li>
-						<a href=""><i class="fa fa-times"></i>Cancel</a>
-					</li>
-				</ul>
-			</div><!--/checkout-options-->
+			<!-- <div class="step-one">
+				<h2 class="heading">Step 1</h2>
+			</div> -->
+			
+			<form action="/payment" method="POST">
 
-			<div class="register-req">
-				<p>Please use Register And Checkout to easily get access to your order history, or use Checkout as Guest</p>
-			</div><!--/register-req-->
-
-			<div class="shopper-informations">
-				<div class="row">
-					<div class="col-sm-3">
-						<div class="shopper-info">
-							<p>Shopper Information</p>
-							<form>
-								<input type="text" placeholder="Display Name">
-								<input type="text" placeholder="User Name">
-								<input type="password" placeholder="Password">
-								<input type="password" placeholder="Confirm password">
-							</form>
-							<a class="btn btn-primary" href="">Get Quotes</a>
-							<a class="btn btn-primary" href="">Continue</a>
-						</div>
-					</div>
-					<div class="col-sm-5 clearfix">
-						<div class="bill-to">
-							<p>Bill To</p>
-							<div class="form-one">
-								<form>
-									<input type="text" placeholder="Company Name">
-									<input type="text" placeholder="Email*">
-									<input type="text" placeholder="Title">
+				<div class="shopper-informations">
+					<div class="row">
+						<div class="col-sm-8 clearfix">
+							<div class="bill-to">
+								<p>Bill To</p>
+								<div class="form-one">
+									<input type="text" name="email" placeholder="Email *" required>
 									<input type="text" placeholder="First Name *">
-									<input type="text" placeholder="Middle Name">
 									<input type="text" placeholder="Last Name *">
-									<input type="text" placeholder="Address 1 *">
-									<input type="text" placeholder="Address 2">
-								</form>
-							</div>
-							<div class="form-two">
-								<form>
-									<input type="text" placeholder="Zip / Postal Code *">
-									<select>
-										<option>-- Country --</option>
+									<input type="text" name="address1" placeholder="Address 1 *" required>
+									<input type="text" name="address2" placeholder="Address 2">
+								</div>
+								
+								<div class="form-two">
+									<input type="text" name="zip" placeholder="Zip / Postal Code *" required>
+									<select name="country" required>
+										<option value="">-- Country --</option>
 										<option>United States</option>
 										<option>Bangladesh</option>
 										<option>UK</option>
@@ -76,8 +41,8 @@
 										<option>Canada</option>
 										<option>Dubai</option>
 									</select>
-									<select>
-										<option>-- State / Province / Region --</option>
+									<select name="province" required>
+										<option value="">-- State / Province / Region --</option>
 										<option>United States</option>
 										<option>Bangladesh</option>
 										<option>UK</option>
@@ -87,154 +52,248 @@
 										<option>Canada</option>
 										<option>Dubai</option>
 									</select>
-									<input type="password" placeholder="Confirm password">
 									<input type="text" placeholder="Phone *">
 									<input type="text" placeholder="Mobile Phone">
-									<input type="text" placeholder="Fax">
-								</form>
+									<select id="delivery_method" name="delivery_method" required>
+										<option value="">-- Delivery Method --</option>
+										<option value="store_pickup">Store Pickup</option>
+										<option value="delivery">Delivery</option>
+									</select>
+								</div>
 							</div>
 						</div>
+						<div class="col-sm-4 clearfix">
+							<div class="bill-to">
+								<p>Payment</p>
+								<div class="form-two" style="margin-left: 0; width: 100%;">
+									<select id="payment_method" name="payment_method" required>
+										<option value="">-- Payment Method --</option>
+										<option value="cash_on_delivery">Cash On Delivery</option>
+										<option value="card">Card Payment</option>
+									</select>
+								</div>
+								<div id="payment_form_body" class="form-two" style="margin-left:0; float: none; width: 100%;">
+
+								</div>
+							</div>	
+						</div>
 					</div>
-					<div class="col-sm-4">
-						<div class="order-message">
-							<p>Shipping Order</p>
-							<textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-							<label><input type="checkbox"> Shipping to bill address</label>
-						</div>	
-					</div>					
 				</div>
-			</div>
-			<div class="review-payment">
-				<h2>Review & Payment</h2>
-			</div>
 
-			<div class="table-responsive cart_info">
-				<table class="table table-condensed">
-					<thead>
-						<tr class="cart_menu">
-							<td class="image">Item</td>
-							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
-							<td class="total">Total</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/one.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/two.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td class="cart_product">
-								<a href=""><img src="images/cart/three.png" alt=""></a>
-							</td>
-							<td class="cart_description">
-								<h4><a href="">Colorblock Scuba</a></h4>
-								<p>Web ID: 1089772</p>
-							</td>
-							<td class="cart_price">
-								<p>$59</p>
-							</td>
-							<td class="cart_quantity">
-								<div class="cart_quantity_button">
-									<a class="cart_quantity_up" href=""> + </a>
-									<input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-									<a class="cart_quantity_down" href=""> - </a>
-								</div>
-							</td>
-							<td class="cart_total">
-								<p class="cart_total_price">$59</p>
-							</td>
-							<td class="cart_delete">
-								<a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">&nbsp;</td>
-							<td colspan="2">
-								<table class="table table-condensed total-result">
-									<tr>
-										<td>Cart Sub Total</td>
-										<td>$59</td>
-									</tr>
-									<tr>
-										<td>Exo Tax</td>
-										<td>$2</td>
-									</tr>
-									<tr class="shipping-cost">
-										<td>Shipping Cost</td>
-										<td>Free</td>										
-									</tr>
-									<tr>
-										<td>Total</td>
-										<td><span>$61</span></td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-			<div class="payment-options">
-					<span>
-						<label><input type="checkbox"> Direct Bank Transfer</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Check Payment</label>
-					</span>
-					<span>
-						<label><input type="checkbox"> Paypal</label>
-					</span>
+				<div class="review-payment">
+					<h2>Review & Payment</h2>
 				</div>
+
+				<div class="table-responsive cart_info">
+					<table class="table table-condensed">
+						<thead>
+							<tr class="cart_menu">
+								<td class="image">Item</td>
+								<td class="description"></td>
+								<td class="price">Price</td>
+								<td class="quantity">Quantity</td>
+								<td class="total">Total</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+							<% for (var i = 0; i < result.length; i++) { %>
+							<tr>
+								<td class="cart_product">
+									<a href=""><img src="<%= result[i]['product_variant_image'] %>" alt=""></a>
+								</td>
+								<td class="cart_description">
+									<h4><a href=""><%= result[i]['product_name'] %></a></h4>
+									<p>Web ID: <%= result[i]['sku'] %></p>
+								</td>
+								<td class="cart_price">
+									<p class="currency-lkr unit_price" price="<%= result[i]['unit_price'] %>"><%= result[i]['unit_price'] %></p>
+								</td>
+								<td class="cart_quantity">
+									<div class="cart_quantity_button">
+										<a class="cart_quantity_change cart_quantity_up" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"> + </a>
+										<input class="cart_quantity_input" sku="<%= result[i]['sku'] %>" type="text" name="quantity" value="<%= result[i]['quantity'] %>" autocomplete="off" size="2" style="background-color: white;" disabled>
+										<a class="cart_quantity_change cart_quantity_down" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"> - </a>
+									</div>
+								</td>
+								<td class="cart_total">
+									<p class="cart_total_price currency-lkr" price="<%= result[i]['total_price'] %>" sku="<%= result[i]['sku'] %>"><%= result[i]['total_price'] %></p>
+								</td>
+								<td class="cart_delete">
+									<a class="cart_quantity_delete" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"><i class="fa fa-times"></i></a>
+								</td>
+							</tr>
+							<% } %>
+
+							<tr>
+								<td colspan="4">&nbsp;</td>
+								<td colspan="2">
+									<table class="table table-condensed total-result">
+										<tr>
+											<td>Cart Sub Total</td>
+											<td class="cart_sub_total currency-lkr" style="float: right;">0</td>
+										</tr>
+										<tr>
+											<td>Exo Tax</td>
+											<td class="eco_tax currency-lkr" style="float: right;">0</td>
+										</tr>
+										<tr class="shipping-cost">
+											<td>Shipping Cost</td>
+											<td style="float: right;">Free</td>										
+										</tr>
+										<tr>
+											<td>Total</td>
+											<td style="float: right;"><span class="total_amount currency-lkr">0</span></td>
+										</tr>
+										<tr>
+											<td style="text-align: center;" colspan="2">
+												<button class="btn btn-default check_out" type="submit">Confirm & Pay</button>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+
+			</form>			
+
 		</div>
-    </section> <!--/#cart_items-->
+	</section> <!--/#cart_items-->
+	
     
 <%- include ('footer') %>
+
+<script>
+	
+	var years = '';
+	var cur_date = new Date;
+	for (var y=cur_date.getFullYear(); y<cur_date.getFullYear()+5; y++ ){
+		years += '<option>'+y.toString()+'</option>';
+	}
+		
+	var payment_form_body = 
+	'<input type="text" pattern="[a-zA-Z]{1,}" name="card_owner" placeholder="Owner *">'+
+	'<input type="text" maxlength="16" pattern="[0-9]{16}" name="card_number" placeholder="Card Number *">'+
+	'<input type="text" maxlength="3" pattern="[0-9]{3}" name="card_ccv" placeholder="CCV *">'+
+	'<label style="font-weight: normal; margin: 5px 0px 10px;">Expiry Date: *</label>'+
+	'<div class="form-row">'+
+		'<select class="col-sm-6" style="padding: 10px; margin-bottom: 10px; margin-right:10px">'+
+			'<option>January</option>'+
+			'<option>February</option>'+
+			'<option>March</option>'+
+			'<option>April</option>'+
+			'<option>May</option>'+
+			'<option>June</option>'+
+			'<option>July</option>'+
+			'<option>August</option>'+
+			'<option>September</option>'+
+			'<option>October</option>'+
+			'<option>November</option>'+
+			'<option>December</option>'+
+		'</select>'+
+		'<select class="col-sm-5" style="padding: 10px; margin-bottom: 10px; float: right;">' + years + '</select>'+
+	'</div>';
+
+	$('#payment_method').change(function() {
+		if ($(this).val() == 'card') {
+			$('#payment_form_body').html(payment_form_body);
+		}
+		else {
+			$('#payment_form_body').html('');
+		}
+	});
+
+
+	function format_currency(monetary_value) {
+		var i = new Intl.NumberFormat('en-IN', { 
+			style: 'currency', 
+			currency: 'LKR' 
+		}).format(monetary_value);
+
+		return i;
+	}
+
+	$('.currency-lkr').each(function() { 
+		var monetary_value = $(this).text();
+		var i = format_currency(monetary_value);
+		$(this).text(i); 
+	});
+
+	$('.cart_quantity_change').click(function() {
+		var sku = $(this).attr('sku');
+		var quantity = 0;
+		var activity = '';
+		
+		if ($(this).hasClass('cart_quantity_up')) {
+			quantity = parseInt($('.cart_quantity_input[sku="'+sku+'"').val()) + 1;
+			activity = 'increase';
+		}
+		else {
+			quantity = parseInt($('.cart_quantity_input[sku="'+sku+'"').val()) - 1;
+			activity = 'reduce';
+		}
+
+		var unit_price = $(this).parent().parent().parent().find('.cart_price').find('.unit_price').attr('price');
+		var total_price = unit_price * quantity;
+		var total_price_formatted = format_currency(total_price);
+		
+		if(quantity>=1){
+			$.ajax({
+				type:'POST',
+				url:'/changeQuantity',
+				contentType: 'application/json',
+				dataType: "json",
+				data:JSON.stringify({sku: sku, quantity: quantity}),
+				success: function(data) {
+					if (data.result=='success') {
+						$('.cart_quantity_input[sku="'+sku+'"]').val(quantity);
+						$('.cart_total_price[sku="'+sku+'"]').html(total_price_formatted);
+						$('.cart_total_price[sku="'+sku+'"]').attr('price', total_price);
+						calculateTotalAmount();
+					} else {
+						alert('Unable to ' + activity + ' quantity. Try again!')
+					}
+				}
+			});
+		}		
+	});
+
+	$('.cart_quantity_delete').click(function() {
+		var sku = $(this).attr('sku');
+		$.ajax({
+			type:'POST',
+			url:'/deleteCartItem',
+			contentType: 'application/json',
+			dataType: "json",
+			data:JSON.stringify({sku: sku}),
+			success: function(data) {
+				if (data.result=='success') {
+					$('.cart_quantity_delete[sku="'+sku+'"]').parent().parent().remove();
+					calculateTotalAmount();
+				} else {
+					alert('Unable to remove cart item. Try again!')
+				}
+			}
+		});
+	});
+
+	function calculateTotalAmount() {
+		var cart_sub_total = 0;
+		$('.cart_total_price').each(function() {
+			cart_sub_total += parseFloat($(this).attr('price'));
+		});
+		
+		var eco_tax = cart_sub_total * 5/100;
+		var total_amount = cart_sub_total + eco_tax;
+
+		$('.cart_sub_total').html(format_currency(cart_sub_total));
+		$('.eco_tax').html(format_currency(eco_tax));
+		$('.total_amount').html(format_currency(total_amount));
+	}
+
+	calculateTotalAmount();
+
+</script>

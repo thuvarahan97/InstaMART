@@ -1,0 +1,70 @@
+<%- include ('header') %>
+
+    <section id="cart_items">
+		<div class="container">
+			<div class="breadcrumbs">
+				<ol class="breadcrumb">
+				  <li><a href="/">Home</a></li>
+				  <li><a href="/checkout">Check out</a></li>
+				  <li class="active">Payment</li>
+				</ol>
+			</div><!--/breadcrums-->
+
+			<div class="step-one">
+				<h2 class="heading">Step 2</h2>
+			</div>
+
+			<div class="shopper-informations">
+				<div class="row">
+					<form action="/payment" method="POST">
+						<div class="col-sm-7 clearfix">
+							<div class="bill-to">
+								<p>Bill To</p>
+								<div class="form-one">
+									<input type="text" name="card_number" placeholder="Card Number *" required>
+									<!-- <input type="text" placeholder="First Name *">
+									<input type="text" placeholder="Last Name *"> -->
+									<input type="text" name="address1" placeholder="CCV *" required>
+									<input type="text" name="address2" placeholder="Address 2">
+								</div>
+								
+								<div class="form-two">
+									<input type="text" name="zip" placeholder="Zip / Postal Code *" required>
+									<select name="country" required>
+										<option value="">-- Country --</option>
+										<option>United States</option>
+										<option>Bangladesh</option>
+										<option>UK</option>
+										<option>India</option>
+										<option>Pakistan</option>
+										<option>Ucrane</option>
+										<option>Canada</option>
+										<option>Dubai</option>
+									</select>
+									<select name="province" required>
+										<option value="">-- State / Province / Region --</option>
+										<option>United States</option>
+										<option>Bangladesh</option>
+										<option>UK</option>
+										<option>India</option>
+										<option>Pakistan</option>
+										<option>Ucrane</option>
+										<option>Canada</option>
+										<option>Dubai</option>
+									</select>
+									<input type="text" placeholder="Phone *">
+									<input type="text" placeholder="Mobile Phone">
+								</div>
+								
+								<button type="submit" name="submit" class="btn btn-primary">Continue</button>
+								<a href="/cart" class="btn btn-primary">Cancel</a>
+							</div>
+						</div>
+					</form>			
+				</div>
+			</div>
+
+		</div>
+    </section> <!--/#cart_items-->
+    
+<%- include ('footer') %>

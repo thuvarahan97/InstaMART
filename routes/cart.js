@@ -1,28 +1,27 @@
 var connection = require('./../config');
 
 exports.viewCart = function(req, res){
-    var mode = 'signup';
-    var output = 'error';
-    var message = '';
-    
-    if(req.method == "POST"){
-
+    if (req.session.loggedin) {
+        connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', '0000000086', function (error, result, fields) {
+            if (error) {
+                message = "Error occured! Try again.";
+                // res.render('cart.ejs',{mode: mode, output: output, message: message});
+            }
+            else {
+                res.render('cart.ejs',{result:result});
+            }
+        });
     }
     else {
-        if (req.session.loggedin) {
-            // res.render('checkout.ejs',{mode: mode, output: output, message: message});
-        }
-        else {
-            connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', '0000000086', function (error, result, fields) {
-                if (error) {
-                    message = "Error occured! Try again.";
-                    // res.render('cart.ejs',{mode: mode, output: output, message: message});
-                }
-                else {
-                    res.render('cart.ejs',{result:result});
-                }
-            });
-        }
+        connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', '0000000086', function (error, result, fields) {
+            if (error) {
+                message = "Error occured! Try again.";
+                // res.render('cart.ejs',{mode: mode, output: output, message: message});
+            }
+            else {
+                res.render('cart.ejs',{result:result});
+            }
+        });
     }
 };
 

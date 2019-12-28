@@ -38,10 +38,12 @@
 					<div class="col-md-8 clearfix">
 						<div class="shop-menu clearfix pull-right">
 							<ul class="nav navbar-nav">
+								<% if (loggedin == true) { %>
 								<li><a href=""><i class="fa fa-user"></i> Account</a></li>
+								<% } %>
 								<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<!-- <li><a href="/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li> -->
+								<li><a href="/cart"><i class="fa fa-shopping-cart"></i> Cart <span class="badge" id="cart_total_items" style="background-color: #5800a1;">5</span></a></li>
 								<% if (loggedin == true) { %>
 									<li><a href="/user/logout"><i class="fa fa-lock"></i> Logout</a></li>
 								<% } else { %>
@@ -74,7 +76,7 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="/shop">Products</a></li>
 										<li><a href="/product-details">Product Details</a></li> 
-										<li><a href="/checkout">Checkout</a></li> 
+										<!-- <li><a href="/checkout">Checkout</a></li> -->
 										<li><a href="/cart">Cart</a></li> 
 										<li><a href="/login">Login</a></li> 
                                     </ul>

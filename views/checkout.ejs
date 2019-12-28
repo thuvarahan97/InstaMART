@@ -21,39 +21,39 @@
 							<div class="bill-to">
 								<p>Bill To</p>
 								<div class="form-one">
-									<input type="text" name="email" placeholder="Email *" required>
-									<input type="text" placeholder="First Name *">
-									<input type="text" placeholder="Last Name *">
-									<input type="text" name="address1" placeholder="Address 1 *" required>
-									<input type="text" name="address2" placeholder="Address 2">
+									<input type="text" name="email" placeholder="Email *" value="<%= user_details.email %>" required>
+									<input type="text" name="firstname" placeholder="First Name *" value="<%= user_details.firstname %>" required>
+									<input type="text" name="lastname" placeholder="Last Name *" value="<%= user_details.lastname %>" required>
+									<input type="text" name="address1" placeholder="Address 1 *" value="<%= user_details.address1 %>" required>
+									<input type="text" name="address2" placeholder="Address 2" value="<%= user_details.address2 %>">
 								</div>
 								
 								<div class="form-two">
-									<input type="text" name="zip" placeholder="Zip / Postal Code *" required>
+									<input type="text" name="zip" placeholder="Zip / Postal Code *" value="<%= user_details.zip %>" required>
 									<select name="country" required>
 										<option value="">-- Country --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
+										<%
+										var country_options = [ "Sri Lanka", "India", "UK", "Pakistan", "Ucrane", "Canada", "Dubai" ];
+										for ( var i = 0; i < country_options.length; i++ )
+										{
+											var selected = ( user_details.country == country_options[i] ) ? "selected" : "";
+											%><option value="<%=country_options[i] %>" <%=selected %>><%=country_options[i] %></option><%
+										}
+										%>
 									</select>
 									<select name="province" required>
 										<option value="">-- State / Province / Region --</option>
-										<option>United States</option>
-										<option>Bangladesh</option>
-										<option>UK</option>
-										<option>India</option>
-										<option>Pakistan</option>
-										<option>Ucrane</option>
-										<option>Canada</option>
-										<option>Dubai</option>
+										<%
+										var province_options = [ "Jaffna", "Colombo", "Galle", "Pakistan", "Ucrane", "Canada", "Dubai" ];
+										for ( var i = 0; i < province_options.length; i++ )
+										{
+											var selected = ( user_details.province == province_options[i] ) ? "selected" : "";
+											%><option value="<%=province_options[i] %>" <%=selected %>><%=province_options[i] %></option><%
+										}
+										%>
 									</select>
-									<input type="text" placeholder="Phone *">
-									<input type="text" placeholder="Mobile Phone">
+									<input type="text" name="phone" placeholder="Phone *" value="<%=user_details.phone %>" required>
+									<input type="text" name="mobile" placeholder="Mobile Phone">
 									<select id="delivery_method" name="delivery_method" required>
 										<option value="">-- Delivery Method --</option>
 										<option value="store_pickup">Store Pickup</option>
@@ -97,30 +97,30 @@
 							</tr>
 						</thead>
 						<tbody>
-							<% for (var i = 0; i < result.length; i++) { %>
+							<% for (var i = 0; i < cart.length; i++) { %>
 							<tr>
 								<td class="cart_product">
-									<a href=""><img src="<%= result[i]['product_variant_image'] %>" alt=""></a>
+									<a href=""><img src="<%= cart[i]['product_variant_image'] %>" alt=""></a>
 								</td>
 								<td class="cart_description">
-									<h4><a href=""><%= result[i]['product_name'] %></a></h4>
-									<p>Web ID: <%= result[i]['sku'] %></p>
+									<h4><a href=""><%= cart[i]['product_name'] %></a></h4>
+									<p>Web ID: <%= cart[i]['sku'] %></p>
 								</td>
 								<td class="cart_price">
-									<p class="currency-lkr unit_price" price="<%= result[i]['unit_price'] %>"><%= result[i]['unit_price'] %></p>
+									<p class="currency-lkr unit_price" price="<%= cart[i]['unit_price'] %>"><%= cart[i]['unit_price'] %></p>
 								</td>
 								<td class="cart_quantity">
 									<div class="cart_quantity_button">
-										<a class="cart_quantity_change cart_quantity_up" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"> + </a>
-										<input class="cart_quantity_input" sku="<%= result[i]['sku'] %>" type="text" name="quantity" value="<%= result[i]['quantity'] %>" autocomplete="off" size="2" style="background-color: white;" disabled>
-										<a class="cart_quantity_change cart_quantity_down" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"> - </a>
+										<a class="cart_quantity_change cart_quantity_up" sku="<%= cart[i]['sku'] %>" style="cursor: pointer; user-select: none;"> + </a>
+										<input class="cart_quantity_input" sku="<%= cart[i]['sku'] %>" type="text" name="quantity" value="<%= cart[i]['quantity'] %>" autocomplete="off" size="2" style="background-color: white;" disabled>
+										<a class="cart_quantity_change cart_quantity_down" sku="<%= cart[i]['sku'] %>" style="cursor: pointer; user-select: none;"> - </a>
 									</div>
 								</td>
 								<td class="cart_total">
-									<p class="cart_total_price currency-lkr" price="<%= result[i]['total_price'] %>" sku="<%= result[i]['sku'] %>"><%= result[i]['total_price'] %></p>
+									<p class="cart_total_price currency-lkr" price="<%= cart[i]['total_price'] %>" sku="<%= cart[i]['sku'] %>"><%= cart[i]['total_price'] %></p>
 								</td>
 								<td class="cart_delete">
-									<a class="cart_quantity_delete" sku="<%= result[i]['sku'] %>" style="cursor: pointer; user-select: none;"><i class="fa fa-times"></i></a>
+									<a class="cart_quantity_delete" sku="<%= cart[i]['sku'] %>" style="cursor: pointer; user-select: none;"><i class="fa fa-times"></i></a>
 								</td>
 							</tr>
 							<% } %>

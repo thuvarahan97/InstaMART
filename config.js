@@ -4,7 +4,8 @@ var connection = mysql.createConnection({
   host     : 'localhost',
   user     : 'root',
   password : '',
-  database : 'instamart'
+  database : 'instamart',
+  multipleStatements: true
 });
 connection.connect(function(err){
 if(!err) {

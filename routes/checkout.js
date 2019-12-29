@@ -15,7 +15,7 @@ exports.viewCheckout = function(req, res){
           var phone = '';
 
           if (req.session.loggedin) {
-               connection.query('SELECT email, firstname, lastname FROM tbl_customers WHERE customer_id=?', '0000000086', function (error, result, fields) {
+               connection.query('SELECT email, firstname, lastname FROM tbl_customers WHERE customer_id=?', req.session.customer_id, function (error, result, fields) {
                     if (error) {
                          res.redirect('/cart');
                     }
@@ -26,7 +26,7 @@ exports.viewCheckout = function(req, res){
                     }
                });
 
-               connection.query('SELECT C.address_line1, C.address_line2, C.province, C.country, C.zip_code, D.telephone FROM tbl_orders B natural join tbl_shipping_address C, tbl_telephones D WHERE B.customer_id=? AND B.customer_id=D.customer_id ORDER BY C.order_id DESC LIMIT 1', '0000000086', function (error, result, fields) {
+               connection.query('SELECT C.address_line1, C.address_line2, C.province, C.country, C.zip_code, D.telephone FROM tbl_orders B natural join tbl_shipping_address C, tbl_telephones D WHERE B.customer_id=? AND B.customer_id=D.customer_id ORDER BY C.order_id DESC LIMIT 1', req.session.customer_id, function (error, result, fields) {
                     if (error) {
                          res.redirect('/cart');
                     }
@@ -41,9 +41,9 @@ exports.viewCheckout = function(req, res){
                });               
           }
           
-          connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', '0000000086', function (error, result, fields) {
+          connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', req.session.customer_id, function (error, result, fields) {
                if (error) {
-                    // res.redirect('/cart');
+                    res.redirect('/cart');
                }
                else {
                     res.render('checkout.ejs',{cart: result, user_details: {email: email, firstname: firstname, lastname: lastname, address1: address1, address2: address2, zip: zip, province: province, country: country, phone: phone}});
@@ -78,34 +78,46 @@ exports.confirmPayment = function(req, res){
           var payment_method = req.body.payment_method;
 
           var output = '';
+          var message = '';
+          var cart = [];
 
-          connection.query('CALL PlaceOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,@output); SELECT @output;',['0000000086',email,firstname,lastname,address1,address2,province,country,zip,phone,mobile,delivery_method,payment_method], function (error, result, fields) {
+          connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', req.session.customer_id, function (error, result, fields) {
                if (error) {
-                    message = "Error occured! Try again.";
                     res.redirect('/cart');
+               }
+               else {
+                    cart = result;
+               }
+          });
+
+          connection.query('CALL PlaceOrder(?,?,?,?,?,?,?,?,?,?,?,?,?,@output); SELECT @output;',[req.session.customer_id,email,firstname,lastname,address1,address2,province,country,zip,phone,mobile,delivery_method,payment_method], function (error, result, fields) {
+               if (error) {
+                    message = "Failed to place your order at the moment! Try again.";
                }
                else{
                     output = result[1][0]['@output'];
-               }
 
-               switch (output){
-                    case 'success':
-                         message = "Some fields are empty!";
-                         res.render('login.ejs',{mode: mode, output: output, message: message});
-                    break;
-                    case 'failed':
-                         message = "Email already exists!";
-                         res.render('login.ejs',{mode: mode, output: output, message: message});
-                    break;
-                    case 'email_exists':
-                         message = "Username already exists!";
-                         res.render('login.ejs',{mode: mode, output: output, message: message});
-                    break;
-                    default:
-                         message = "Your account has been created successfully!";
-                         res.render('login.ejs',{mode: mode, output: output, message: message});
+                    switch (output){
+                         case 'success':
+                              message = "Some fields are empty!";
+                              res.redirect('/order_success');
+                              res.end();
+                         break;
+                         case 'failed':
+                              message = "Failed to place your order! Try again.";
+                              res.render('checkout.ejs',{message: message, cart: cart, user_details: {email: email, firstname: firstname, lastname: lastname, address1: address1, address2: address2, zip: zip, province: province, country: country, phone: phone}});
+                              res.end();
+                         break;
+                         case 'email_exists':
+                              message = "User account with this email already exists! Login to your user account or user another email address.";
+                              res.render('checkout.ejs',{message: message, cart: cart, user_details: {email: email, firstname: firstname, lastname: lastname, address1: address1, address2: address2, zip: zip, province: province, country: country, phone: phone}});
+                              res.end();
+                         break;
+                    }
+
                }
           });
+
      }
      else {
           res.redirect('/cart');          

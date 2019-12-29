@@ -2,7 +2,7 @@ var connection = require('./../config');
 
 exports.viewCart = function(req, res){
     if (req.session.loggedin) {
-        connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', '0000000086', function (error, result, fields) {
+        connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', req.session.customer_id, function (error, result, fields) {
             if (error) {
                 message = "Error occured! Try again.";
                 // res.render('cart.ejs',{mode: mode, output: output, message: message});
@@ -13,7 +13,7 @@ exports.viewCart = function(req, res){
         });
     }
     else {
-        connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', '0000000086', function (error, result, fields) {
+        connection.query('SELECT * FROM view_cart_items WHERE customer_id=?', req.session.customer_id, function (error, result, fields) {
             if (error) {
                 message = "Error occured! Try again.";
                 // res.render('cart.ejs',{mode: mode, output: output, message: message});
@@ -29,7 +29,7 @@ exports.viewCart = function(req, res){
 exports.changeQuantity = function(req, res){
     var sku = req.body.sku;
     var quantity = req.body.quantity;
-    connection.query('UPDATE view_cart_items SET quantity=? WHERE customer_id=? AND sku=?', [quantity, '0000000086', sku], function (error, result, fields) {
+    connection.query('UPDATE view_cart_items SET quantity=? WHERE customer_id=? AND sku=?', [quantity, req.session.customer_id, sku], function (error, result, fields) {
         if (error) {
             res.send({result:'failed'});
         }
@@ -41,7 +41,7 @@ exports.changeQuantity = function(req, res){
 
 exports.deleteCartItem = function(req, res){
     var sku = req.body.sku;
-    connection.query('UPDATE tbl_carts SET item_status=? WHERE customer_id=? AND sku=?', ['removed', '0000000086', sku], function (error, result, fields) {
+    connection.query('UPDATE tbl_carts SET item_status=? WHERE customer_id=? AND sku=?', ['removed', req.session.customer_id, sku], function (error, result, fields) {
         if (error) {
             res.send({result:'failed'});
         }

@@ -1,5 +1,7 @@
 <%- include ('header') %>
 
+	<% if (typeof message != "undefined") { %> <script>alert('<%= message; %>');</script> <% } %>
+
     <section id="cart_items">
 		<div class="container">
 			<div class="breadcrumbs">
@@ -175,12 +177,12 @@
 	}
 		
 	var payment_form_body = 
-	'<input type="text" pattern="[a-zA-Z]{1,}" name="card_owner" placeholder="Owner *">'+
-	'<input type="text" maxlength="16" pattern="[0-9]{16}" name="card_number" placeholder="Card Number *">'+
-	'<input type="text" maxlength="3" pattern="[0-9]{3}" name="card_ccv" placeholder="CCV *">'+
+	'<input type="text" pattern="[a-zA-Z]{1,}" name="card_owner" placeholder="Owner *" required>'+
+	'<input type="text" maxlength="16" pattern="[0-9]{16}" name="card_number" placeholder="Card Number *" required>'+
+	'<input type="text" maxlength="3" pattern="[0-9]{3}" name="card_ccv" placeholder="CCV *" required>'+
 	'<label style="font-weight: normal; margin: 5px 0px 10px;">Expiry Date: *</label>'+
 	'<div class="form-row">'+
-		'<select class="col-sm-6" style="padding: 10px; margin-bottom: 10px; margin-right:10px">'+
+		'<select class="col-sm-6" style="padding: 10px; margin-bottom: 10px; margin-right:10px" required>'+
 			'<option>January</option>'+
 			'<option>February</option>'+
 			'<option>March</option>'+
@@ -194,7 +196,7 @@
 			'<option>November</option>'+
 			'<option>December</option>'+
 		'</select>'+
-		'<select class="col-sm-5" style="padding: 10px; margin-bottom: 10px; float: right;">' + years + '</select>'+
+		'<select class="col-sm-5" style="padding: 10px; margin-bottom: 10px; float: right;" required>' + years + '</select>'+
 	'</div>';
 
 	$('#payment_method').change(function() {

@@ -73,7 +73,7 @@ exports.login = function(req, res){
                decryptedString = cryptr.decrypt(results[0].password);
                if (password == decryptedString) {
                   req.session.loggedin = true;
-                  req.session.user_id = results[0].user_id;
+                  req.session.customer_id = results[0].user_id;
                   req.session.username = username;
                   res.redirect('/');
                }

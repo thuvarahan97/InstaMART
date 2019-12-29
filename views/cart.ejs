@@ -9,6 +9,7 @@
             </ol>
         </div>
         <div class="table-responsive cart_info">
+            <% if (typeof result != "undefined" && result.length != 0) { %>
             <table class="table table-condensed">
                 <thead>
                     <tr class="cart_menu">
@@ -50,6 +51,13 @@
                     <% } %>
                 </tbody>
             </table>
+            <% } else { %>
+                <div style="text-align: center; padding: 50px;">
+                    <img src="/images/cart/empty_cart.png" width="250px">
+                    <h2>Your Shopping Cart is empty</h2>
+                    <p>Don't miss out on great deals! Start shopping or <a href="/login">log in</a> to view products added.</p>
+                </div>
+            <% } %>
         </div>
     </div>
 </section> <!--/#cart_items-->
@@ -115,6 +123,8 @@
                     <a class="btn btn-default check_out" href="">Continue</a>
                 </div>
             </div> -->
+
+            <% if (typeof result != "undefined" && result.length != 0) { %>
             <div class="col-sm-6" style="display: block; margin: auto; float: none;">
                 <div class="total_area">
                     <ul>
@@ -128,6 +138,7 @@
                     </form>
                 </div>
             </div>
+            <% } %>
         </div>
     </div>
 </section><!--/#do_action-->

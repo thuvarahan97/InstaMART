@@ -22,7 +22,7 @@ function loadproducts(){
 
             var textName = document.createTextNode('Product Name: ' +product.product_name);
             var textBrand = document.createTextNode('Product Brand: ' + product.product_brand);
-            var textImage = document.createTextNode(product.product_image);
+            var Image = product.product_image;
             var textDescription = document.createTextNode('Product Description: ' + product.product_description);
             
 
@@ -30,9 +30,9 @@ function loadproducts(){
             product_brand.appendChild(textBrand);
             product_description.appendChild(textDescription);
             
-            img.src =textImage;
+            img.src =Image;
 
-            console.log(textImage)
+            console.log(Image)
 
             node.appendChild(product_name);
             node.appendChild(product_brand);

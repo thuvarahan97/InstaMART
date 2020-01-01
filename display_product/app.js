@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
 
     else if(req.method == "GET" && req.url == '/functions.js')
     {
-    fs.createReadStream("./functions.js").pipe(res);
+        fs.createReadStream("./functions.js").pipe(res);
     }
 });
 

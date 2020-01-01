@@ -9,7 +9,8 @@
     "mysql": "^2.17.1",
     "node": "^13.3.0",
     "nodemon": "^2.0.2",
-    "package": "^1.0.1"
+    "package": "^1.0.1",
+    "resize-image": "^0.1.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -6,6 +6,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var cart = require('./routes/cart');
 var checkout = require('./routes/checkout');
+var product = require('./routes/product');
 var http = require('http');
 var path = require('path');
 var app = express();
@@ -17,6 +18,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 app.use(session({
 	secret: 'InstaMART2019',
 	resave: false,
@@ -61,5 +63,16 @@ app.post('/payment', checkout.confirmPayment);      //call for payment page
 
 app.post('/changeQuantity', cart.changeQuantity);   //Change quantity of cart item
 app.post('/deleteCartItem', cart.deleteCartItem);   //Remove cart item
+
+app.get('/loadCategories', routes.loadCategories);   
+app.get('/loadFeaturedProducts', routes.loadFeaturedProducts);
+app.get('/loadRecommendedProducts', routes.loadRecommendedProducts);
+
+app.get('/loadBrands', routes.loadBrands);
+
+app.get('/products', product.getAllProducts);
+app.get('/product_details', product.getSingleProduct);
+
+app.get('/search', routes.searchProducts);
 
 app.listen(8080);

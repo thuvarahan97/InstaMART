@@ -19,9 +19,17 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.prettyPhoto.js"></script>
 <script src="js/main.js"></script>
+<script src="js/typeahead.min.js"></script>
 
 <script>
     document.getElementById("copyright_year").innerHTML = new Date().getFullYear();
+
+    $('input.typeahead').typeahead({
+        name: 'countries',
+        remote: '/search?key=%QUERY',
+        limit: 10
+    });
+
 </script>
 
 </body>

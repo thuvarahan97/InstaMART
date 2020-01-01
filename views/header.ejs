@@ -72,11 +72,11 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="/">Home</a></li>
-								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+								<!-- <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="/shop">Products</a></li>
 										<li><a href="/product-details">Product Details</a></li> 
-										<!-- <li><a href="/checkout">Checkout</a></li> -->
+										<li><a href="/checkout">Checkout</a></li>
 										<li><a href="/cart">Cart</a></li> 
 										<li><a href="/login">Login</a></li> 
                                     </ul>
@@ -88,13 +88,16 @@
                                     </ul>
                                 </li> 
 								<li><a href="/404">404</a></li>
-								<li><a href="/contact-us">Contact</a></li>
+								<li><a href="/contact-us">Contact</a></li> -->
 							</ul>
 						</div>
 					</div>
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
-							<input type="text" placeholder="Search"/>
+							<form method="GET" action="/products">
+								<input type="text" name="search" class="typeahead tt-query" autocomplete="off" spellcheck="false" placeholder="Search"/>
+								<input type="submit" value="submit" style="display: none;"/>
+							</form>
 						</div>
 					</div>
 				</div>

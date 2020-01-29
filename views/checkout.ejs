@@ -208,22 +208,6 @@
 		}
 	});
 
-
-	function format_currency(monetary_value) {
-		var i = new Intl.NumberFormat('en-IN', { 
-			style: 'currency', 
-			currency: 'LKR' 
-		}).format(monetary_value);
-
-		return i;
-	}
-
-	$('.currency-lkr').each(function() { 
-		var monetary_value = $(this).text();
-		var i = format_currency(monetary_value);
-		$(this).text(i); 
-	});
-
 	$('.cart_quantity_change').click(function() {
 		var sku = $(this).attr('sku');
 		var quantity = 0;

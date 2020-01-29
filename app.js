@@ -73,6 +73,10 @@ app.get('/loadBrands', routes.loadBrands);
 app.get('/products', product.getAllProducts);
 app.get('/product_details', product.getSingleProduct);
 
+app.post('/loadProductVariants', product.getSingleProductVariants);
+
 app.get('/search', routes.searchProducts);
+
+app.post('/addToCart', product.addToCart);
 
 app.listen(8080);

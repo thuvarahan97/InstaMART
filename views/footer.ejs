@@ -1,0 +1,51 @@
+<footer id="footer"><!--Footer-->
+		
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="row">
+                <p class="pull-left">Copyright &copy; <span id="copyright_year"></span> InstaMART Inc. All rights reserved.</p>
+                <p class="pull-right">Designed by Team <span style="color:#5800a1; font-weight:400;">GenetriX</span></p>
+            </div>
+        </div>
+    </div>
+    
+</footer><!--/Footer-->
+
+
+
+<script src="js/jquery.js"></script>
+<script src="js/price-range.js"></script>
+<script src="js/jquery.scrollUp.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.prettyPhoto.js"></script>
+<script src="js/main.js"></script>
+<script src="js/typeahead.min.js"></script>
+
+<script>
+    document.getElementById("copyright_year").innerHTML = new Date().getFullYear();
+
+    $('input.typeahead').typeahead({
+        name: 'countries',
+        remote: '/search?key=%QUERY',
+        limit: 10
+    });
+
+    function format_currency(monetary_value) {
+        var i = new Intl.NumberFormat('en-IN', { 
+            style: 'currency', 
+            currency: 'LKR' 
+        }).format(monetary_value);
+
+        return i;
+    }
+
+    $('.currency-lkr').each(function() { 
+        var monetary_value = $(this).text();
+        var i = format_currency(monetary_value);
+        $(this).text(i); 
+    });
+
+</script>
+
+</body>
+</html>
